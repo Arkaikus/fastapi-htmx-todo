@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMX Todo App</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">HTMX Todo App</h1>
+        
+        <!-- Add Todo Form -->
+        <form hx-post="/todos" 
+              hx-target="#todo-list" 
+              hx-swap="innerHTML"
+              class="mb-8">
+            <div class="flex gap-2">
+                <input type="text" 
+                       name="todo" 
+                       placeholder="Add a new todo..." 
+                       class="flex-1 p-2 border rounded"
+                       required>
+                <button type="submit" 
+                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Add
+                </button>
+            </div>
+        </form>
+
+        <!-- Todo List -->
+        <div id="todo-list">
+            {% include "todos.html" %}
+        </div>
+    </div>
+</body>
+</html>

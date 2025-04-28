@@ -1,0 +1,27 @@
+{% if todos %}
+    <ul class="space-y-2">
+        {% for todo in todos %}
+            <li class="flex items-center justify-between bg-white p-4 rounded shadow">
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" 
+                           hx-put="/todos/{{ todo['_id'] }}"
+                           hx-target="#todo-list"
+                           hx-swap="innerHTML"
+                           {% if todo.completed %}checked{% endif %}
+                           class="h-5 w-5">
+                    <span class="{% if todo.completed %}line-through text-gray-500{% endif %}">
+                        {{ todo.text }}
+                    </span>
+                </div>
+                <button hx-delete="/todos/{{ todo["_id"] }}"
+                        hx-target="#todo-list"
+                        hx-swap="innerHTML"
+                        class="text-red-500 hover:text-red-700">
+                    Delete
+                </button>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="text-center text-gray-500">No todos yet. Add one above!</p>
+{% endif %} 
